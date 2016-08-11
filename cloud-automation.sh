@@ -28,3 +28,6 @@ if ! [[ $4 =~ $re ]] ; then
 fi
 echo "$1 $2 $3 $4"
 
+# Get a fresb teraform version from GitHub
+#git clone https://github.com/LinuxArchitects/Terraform_aws.git
+

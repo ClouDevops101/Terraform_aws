@@ -3,12 +3,14 @@
 A Terraform Ansible config to deply infrastructure on AWS :
 
 ```
-    [ ] [ ]
- _[ ]_[ ]_[ ]_
-| PaaS(Docker)|  <- Ansible
-|_____________|
-|  IaaS(AWS)  |  <- Terraform
-|_____________|
+         [ ] [ ]
+     __[ ]_[ ]_[ ]__
+    |               |
+    |  PaaS(Docker) |  <- Ansible
+    |_ _____________|
+    |               |
+    |    IaaS(AWS)  |  <- Terraform
+    |_______________|
 
 ```
 ## Installation

@@ -3,7 +3,20 @@
 A Terraform Ansible config to deply infrastructure on AWS :
 
 ```
-         [ ] [ ]                         cloud-automation.sh
+
+                                             _____                               
+                                            /_____\      
+                                           |[^_/\_]|    ________
+                                          _|___@@__|__  -------                          
+                                          ///     \_\   / /                          
+                                         /// HUBOT/\\  //                         
+                                         //      /  \\/.     
+                                            +---+                            
+                                            |   |                            
+                                            +===+                            
+                                             |xx|  
+
+         [ ] [ ]                       cloud-automation.sh
      __[ ]_[ ]_[ ]__                     |
     |               |                    |
     |  PaaS(Docker) |  <- Ansible -------|
@@ -41,3 +54,5 @@ $ sudo make rpm
 $ sudo yum install rpm-build/ansible-2.2.0-0.git201608111926.925b0ff.devel.el7.centos.noarch.rpm
 $ ansible --version
 ```
+
+

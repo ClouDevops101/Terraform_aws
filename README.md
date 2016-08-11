@@ -54,5 +54,12 @@ $ sudo make rpm
 $ sudo yum install rpm-build/ansible-2.2.0-0.git201608111926.925b0ff.devel.el7.centos.noarch.rpm
 $ ansible --version
 ```
+#### The inventory
+Since we're deploying a infrastructure we can't guess the ip and basic useful information to establish a connection.$
+That's we Dynamic inventory come in help 
+The terraform.py will be executed by ansbile once terraform is done from creating the platform.
 
+```bash
+ chmod +x terraform.py
+``` 
 

@@ -1,0 +1,28 @@
+- name: Create configuration path
+ file:
+ path={{ ghost_docker_path }}
+ state=directory
+ mode=750
+ owner=root
+ group=root
+- name: Download Ghost configuration
+ git:
+ repo={{ ghost_config_repo }}
+ dest={{ ghost_docker_path }}
+ clone=yes
+ ignore_errors: yes
+- name: Build Ghost image
+ docker_image:
+ name=denmanjd/ghost
+ path={{ ghost_docker_path }}/
+ state=build
+- name: Pull and run Ghost Docker container
+ docker:
+ name: ghost-{{ ansible_hostname }}
+ image: denmanjd/ghost
+ restart_policy: always
+ volumes:
+ - "{{ ghost_docker_path }}/config.js:/var/www/ghost/config.js"
+ ports:
+ - 2368:2368
+ env: CONSUL_URL={{ consul_url }}

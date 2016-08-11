@@ -1,0 +1,8 @@
+- name: Pull and run registrator container
+ docker:
+ name: registrator-{{ ansible_hostname }}
+ net: host
+ image: gliderlabs/registrator:latest
+ volumes:
+ - /var/run/docker.sock:/tmp/docker.sock
+ command: -ip {{ public.ip }} consul://{{ consul_url }}

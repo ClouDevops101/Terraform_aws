@@ -1,0 +1,22 @@
+---
+- hosts: all
+  sudo: yes
+  roles:
+  - { role: common, tags: ["common"] }
+  - { role: docker, tags: ["docker"] }
+- hosts: "aws_tag_Group=consul"
+  sudo: yes
+  roles:
+  - { role: consul, tags: ["consul"] }
+- hosts: "aws_tag_Group=dbs"
+  sudo: yes
+  roles:
+  - { role: db-run, tags: ["db-run"] }
+- hosts: "aws_tag_Group=apps"
+  sudo: yes
+  roles:
+  - { role: app-run, tags: ["app-run"] }
+- hosts: "aws_tag_Group=lbs"
+  sudo: yes
+  roles:
+  - { role: lb-run, tags: ["lb-run"] }

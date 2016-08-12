@@ -34,5 +34,5 @@ echo "$1 $2 $3 $4"
 # Get a fresb teraform version from GitHub
 #git clone https://github.com/LinuxArchitects/Terraform_aws.git
 
-terraform plan  -var "app_name=$1" -var "env_name=$2" -var "num_serv=\"$3\"" -var "serv_size=$4"
-#ansible-playbook -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWSNEWKEY.pem
+terraform apply  -var "app_name=$1" -var "env_name=$2" -var "num_serv=\"$3\"" -var "serv_size=$4"
+ ansible-playbook -e 'host_key_checking=False' -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWSNEWKEY.pem 

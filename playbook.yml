@@ -4,10 +4,10 @@
   roles:
    - angstwad.docker_ubuntu
   tasks:
-  - shell: "curl -s https://api.ipify.org"
-    register: myecho
-  - debug: msg="{{myecho.stdout}}"
-#    with_items:
-#      - ip=$(curl -s https://api.ipify.org) 
-#      - echo "My public IP address is: $ip " 
-
+   - command: sudo usermod -aG docker ubuntu
+   - command: docker pull eugeneware/docker-wordpress-nginx 
+   - command: sudo docker run -p 80:80 --name docker-wordpress-nginx -d eugeneware/docker-wordpress-nginx
+   - command: sudo docker start docker-wordpress-nginx
+   - shell: "curl -s https://api.ipify.org"
+     register: myecho
+   - debug: msg="Please configure your application in this url http://{{myecho.stdout}}"

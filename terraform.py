@@ -205,8 +205,7 @@ def openstack_host(resource, module_name):
 @parses('aws_instance')
 @calculate_mi_vars
 def aws_host(resource, module_name):
-    #name = resource['primary']['attributes']['tags.Name']
-    name = "terraform_exemple"
+    name = resource['primary']['attributes']['tags.Name']
     raw_attrs = resource['primary']['attributes']
 
     groups = []

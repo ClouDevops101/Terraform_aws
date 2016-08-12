@@ -6,9 +6,13 @@ provider "aws" {
 # Creating instance
 resource "aws_instance" "example" {
   ami           = "ami-d732f0b7"
-  instance_type = "t2.micro"
+  instance_type = "${var.serv_size}"
   key_name = "${var.key_name}"
   security_groups = ["${aws_security_group.default.name}"]
+  tags {
+        Name = "${var.app_name}"
+        Env = "${var.env_name}"
+       }
 }
 # Security group ssh-in & http(s)-in  
 resource "aws_security_group" "default" {

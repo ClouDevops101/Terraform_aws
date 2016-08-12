@@ -1,7 +1,10 @@
 variable "access_key" {}
 variable "secret_key" {}
 variable "key_name" {}
-#
+variable "app_name" {}
+variable "env_name" {}
+variable "num_serv" {}
+variable "serv_size" {}
 #variable "key_path" {
 #    description = "Path to the private portion of the SSH key specified."
 #}

@@ -54,6 +54,12 @@ $ sudo make rpm
 $ sudo yum install rpm-build/ansible-2.2.0-0.git201608111926.925b0ff.devel.el7.centos.noarch.rpm
 $ ansible --version
 ```
+### Ansible galaxy 
+You choose the lazy solution like me rather than writing a full ansible role 
+
+```bash
+$ sudo ansible-galaxy install angstwad.docker_ubuntu 
+```
 #### The inventory
 Since we're deploying a infrastructure we can't guess the ip and basic useful information to establish a connection.$
 That's we Dynamic inventory come in help 

@@ -5,6 +5,7 @@ provider "aws" {
 }
 # Creating instance
 resource "aws_instance" "example" {
+  count = "${var.num_serv}"
   ami           = "ami-d732f0b7"
   instance_type = "${var.serv_size}"
   key_name = "${var.key_name}"

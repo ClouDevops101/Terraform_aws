@@ -8,6 +8,7 @@ resource "aws_instance" "example" {
   ami           = "ami-d732f0b7"
   instance_type = "t2.micro"
   key_name = "${var.key_name}"
+  security_groups = ["${aws_security_group.default.name}"]
 }
 # Security group ssh-in & http(s)-in  
 resource "aws_security_group" "default" {

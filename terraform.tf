@@ -10,7 +10,7 @@ resource "aws_instance" "example" {
   key_name = "${var.key_name}"
 }
 # Security group ssh-in & http(s)-in  
-resource "aws_security_group" "Terraform-default" {
+resource "aws_security_group" "default" {
     name = "terraform_example"
     description = "Used in the terraform"
 

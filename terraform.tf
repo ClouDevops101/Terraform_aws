@@ -75,7 +75,7 @@ resource "aws_security_group" "elb" {
 }
 
 resource "aws_elb" "web" {
-  name = "terraform-example-elb"
+  name = "abdelilah-heddar"
 
   # The same availability zone as our instance
   availability_zones = ["${aws_instance.web.*.availability_zone}"]
@@ -87,6 +87,13 @@ resource "aws_elb" "web" {
     lb_protocol = "http"
   }
 
+  health_check {
+    healthy_threshold = 2
+    unhealthy_threshold = 2
+    timeout = 3
+    target = "HTTP:80/wp-admin/install.php"
+    interval = 30
+  }  
   # The instance is registered automatically
   #instances = ["${aws_instance.web.*.id}"]
   instances = ["${aws_instance.web.*.id}"]

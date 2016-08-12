@@ -1,6 +1,9 @@
 #! /bin/bash
-# A shell that simplify the use of Terraform & ansible 
-# 
+# Author: Abdelilah HEDDAR
+# A handy shell script that simplify the use of Terraform & ansible 
+# #################################################################
+
+
 # Function
 # define usage function
 # Verify parameter and trigger usage 
@@ -8,9 +11,9 @@ usage(){
 	echo "Usage:" 
         echo "     cloud-automation.sh    <app>       <environment> <num_servers> <server_size>"
         echo "ex:  cloud-automation.sh hello_world          dev         2          t1.micro"
+        echo "Recived args : $1 $2 $3 $4"
         exit 1
 }
-
 
 # call usage() function if the 4 parameter not supplied
 [[ $# -eq 0 ]] && usage

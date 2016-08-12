@@ -55,15 +55,15 @@ $ sudo yum install rpm-build/ansible-2.2.0-0.git201608111926.925b0ff.devel.el7.c
 $ ansible --version
 ```
 ### Ansible galaxy 
-You choose the lazy solution like me rather than writing a full ansible role 
+You may choose the lazy solution like me rather than writing a full ansible docker role 
 
 ```bash
 $ sudo ansible-galaxy install angstwad.docker_ubuntu 
 ```
 #### The inventory
 Since we're deploying a infrastructure we can't guess the ip and basic useful information to establish a connection.$
-That's we Dynamic inventory come in help 
-The terraform.py will be executed by ansbile once terraform is done from creating the platform.
+That's why the Dynamic inventory come in help 
+The terraform.py will be executed by ansbile to fetch information from terraform.tfstat file, once terraform is done from creating the platform.
 
 ```bash
  chmod +x terraform.py

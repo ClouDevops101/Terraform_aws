@@ -11,13 +11,13 @@ resource "aws_instance" "web" {
   key_name = "${var.key_name}"
   security_groups = ["${aws_security_group.default.name}"]
   tags {
-        Name = "${var.app_name}"
+        Name = "${var.app_name}-${count.index}"
         Env = "${var.env_name}"
        }
 }
 # Security group ssh-in & http(s)-in  
 resource "aws_security_group" "default" {
-    name = "terraform_example"
+    name = "web_secure"
     description = "Used in the terraform"
 
     # SSH access from anywhere
@@ -52,11 +52,33 @@ resource "aws_security_group" "default" {
         cidr_blocks = ["0.0.0.0/0"]
     }
 }
+# ELB security group 
+resource "aws_security_group" "elb" {
+  name = "elb_sg"
+  description = "Used in the terraform"
+
+  # HTTP access from anywhere
+  ingress {
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # outbound internet access
+  egress {
+    from_port = 0
+    to_port = 0
+    protocol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "aws_elb" "web" {
-  name = "abdelilah.heddar"
+  name = "terraform-example-elb"
 
   # The same availability zone as our instance
-  availability_zones = ["${aws_instance.web.availability_zone}"]
+  availability_zones = ["${aws_instance.web.*.availability_zone}"]
 
   listener {
     instance_port = 80
@@ -66,5 +88,7 @@ resource "aws_elb" "web" {
   }
 
   # The instance is registered automatically
+  #instances = ["${aws_instance.web.*.id}"]
   instances = ["${aws_instance.web.*.id}"]
+  security_groups = ["${aws_security_group.elb.id}"]
 }

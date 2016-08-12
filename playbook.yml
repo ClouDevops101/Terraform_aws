@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  #strategy: free
   sudo: yes
   roles:
    - angstwad.docker_ubuntu

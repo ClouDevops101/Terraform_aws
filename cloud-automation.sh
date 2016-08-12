@@ -31,8 +31,9 @@ if ! [[ $4 =~ $re ]] ; then
 fi
 echo "$1 $2 $3 $4"
 
-# Get a fresb teraform version from GitHub
-#git clone https://github.com/LinuxArchitects/Terraform_aws.git
-
 terraform apply  -var "app_name=$1" -var "env_name=$2" -var "num_serv=\"$3\"" -var "serv_size=$4"
- ansible-playbook -e 'host_key_checking=False' -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWSNEWKEY.pem 
+ansible-playbook -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWSNEWKEY.pem >/dev/null  2>&1 
+#ansible-playbook -e 'host_key_checking=False' -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWSNEWKEY.pem 
+elb_dns=$(cat terraform.tfstate | grep dns_name | sed -e 's/"//g' -e 's/,//g' -e 's/\s//g' |  awk -F: '{print $2}')
+elb_ip=$(dig +short $elb_dns | head -1) 
+echo "Please continue the application configuration on this url  http://$elb_ip"

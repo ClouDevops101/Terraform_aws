@@ -92,7 +92,7 @@ resource "aws_elb" "web" {
     unhealthy_threshold = 2
     timeout = 3
     target = "HTTP:80/wp-admin/install.php"
-    interval = 30
+    interval = 5
   }  
   # The instance is registered automatically
   #instances = ["${aws_instance.web.*.id}"]

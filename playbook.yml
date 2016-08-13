@@ -1,12 +1,6 @@
 ---
 - hosts: all
-  #strategy: free
   sudo: yes
   roles:
    - docker_ubuntu
    - wordpress
-#  tasks:
-#   - command: sudo usermod -aG docker ubuntu
-#   - command: docker pull eugeneware/docker-wordpress-nginx 
-#   - command: sudo docker run -p 80:80 --name docker-wordpress-nginx -d eugeneware/docker-wordpress-nginx
-#   - command: sudo docker start docker-wordpress-nginx

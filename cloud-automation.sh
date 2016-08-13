@@ -93,3 +93,5 @@ ansible-playbook -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWS
    fi
  done
 echo "It took $(($(date +'%s') - $start)) seconds"
+echo "Use this command to destroy "
+echo "terraform destroy  -var "app_name=$App_Name" -var "env_name=$Env" -var "num_serv=\"$Num_Serv\"" -var "serv_size=$Serv_Size" "

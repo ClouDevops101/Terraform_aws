@@ -12,18 +12,32 @@ usage(){
         echo "     cloud-automation.sh    <app>       <environment> <num_servers> <server_size>"
         echo "ex:  cloud-automation.sh hello_world          dev         2          t1.micro"
         #echo "Recived args : $1 $2 $3 $4"
-        exit 1
+        echo "warinig : default value will be applied, this may generate some additional cost "
+        echo "App : $App_Name Env : $Env Num_serv : $Num_Serv Serv_Size : $Serv_Size "
+        
 }
-
-# call usage() function if the 4 parameter not supplied
+#Default value
+# Arg 1
+App_Name="prod"
+App_Name=${1:-$App_Name}
+# Arg 2
+Env="web"
+Env=${2:-$Env}
+# Arg 3
+Num_Serv="1"
+Num_Serv=${3:-$Num_Serv}
+# Arg 4
+Serv_Size="t2.micro"
+Serv_Size=${4:-$Serv_Size}
+# Prvent user from using an applying default value
 [[ $# -eq 0 ]] && usage
 
 # Advanced parameter verification
 # Number of server
-re='^[0-9]+$'
-if ! [[ $3 =~ $re ]] ; then
-   echo -e "Error: Not a number\n" >&2; usage
-fi
+#re='^[0-9]+$'
+#if ! [[ $3 =~ $re ]] ; then
+#   echo -e "Error: Not a number\n" >&2; usage
+#fi
 # Server Size
 re='^.*\..*+$'
 if ! [[ $4 =~ $re ]] ; then
@@ -31,24 +45,20 @@ if ! [[ $4 =~ $re ]] ; then
 fi
 #echo "$1 $2 $3 $4"
 echo "Starting Terraform"
-AWS_ELB_DNS=$(terraform apply  -var "app_name=$1" -var "env_name=$2" -var "num_serv=\"$3\"" -var "serv_size=$4" | grep address | awk -F= '{print $2}' | sed -e 's/\s//g')
-echo "Terraform ended $AWS_ELB_DNS"
+AWS_ELB_DNS=$(terraform apply  -var "app_name=$App_Name" -var "env_name=$Env" -var "num_serv=\"$Num_Serv\"" -var "serv_size=$Serv_Size" | grep address | awk -F= '{print $2}' | sed -e 's/\s//g' | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" )
+echo "Terraform ended"
 # sleep waiting for amazon instance 70 second per instance
-time_to_zzZZZ=$(( 70  * $3 ))
+#time_to_zzZZZ=$(( 70  * $3 ))
 #sleep $time_to_zzZZZ
 
-echo "Starting Ansible"
+# Starting Ansible"
 #ansible-playbook -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWSNEWKEY.pem  >/dev/null  2>&1 
-echo "Ansible ended"
 # Wait for elb IP
 echo "waiting for elb"
-#elb_dns="abdelilah-heddar-889471894.us-west-2.elb.amazonaws.com"
  while true
   do
-   AWS_ELB_DNS_COUNT=$(getent hosts $AWS_ELB_DNS | wc -l)
-   echo $AWS_ELB_DNS
-   AWS_ELB_IP=$( getent hosts $AWS_ELB_DNS | awk  '{print $1}' )
-   echo $AWS_ELB_IP
+   AWS_ELB_DNS_COUNT=$(dig @8.8.4.4 +short $AWS_ELB_DNS | head -1 | wc -l)
+   AWS_ELB_IP=$(dig @8.8.4.4 +short "${AWS_ELB_DNS}" | head -1)
    if  [ "$AWS_ELB_DNS_COUNT" -eq "0" ]; then
      sleep 4
    elif [ "$AWS_ELB_DNS_COUNT" -eq "1" ]; then
@@ -56,6 +66,6 @@ echo "waiting for elb"
      break
    else
      echo "Sometging wrong"
+     break
    fi
  done
-

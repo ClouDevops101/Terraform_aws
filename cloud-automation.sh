@@ -81,7 +81,8 @@ ansible-playbook -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWS
      sleep 4
    elif [ "$AWS_ELB_DNS_COUNT" -eq "1" ]; then
      if (curl -sSf -m5 http://$AWS_ELB_IP -o /dev/null 2> /dev/null || false) then
-        echo "Application is available url http://$AWS_ELB_IP"
+        echo "Application is available :"
+        echo "                          http://$AWS_ELB_IP"
         break
      else
         #echo "site not up yet"
@@ -92,6 +93,6 @@ ansible-playbook -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWS
      break
    fi
  done
-echo "It took $(($(date +'%s') - $start)) seconds"
+echo "It took $(($(date +'%s') - $start))sec"
 echo "Use this command to destroy "
 echo "terraform destroy  -var "app_name=$App_Name" -var "env_name=$Env" -var "num_serv=\"$Num_Serv\"" -var "serv_size=$Serv_Size" "

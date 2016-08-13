@@ -1,0 +1,12 @@
+---
+#
+#
+#
+- name: Add Ubuntu user to docker group 
+  command: sudo usermod -aG docker ubuntu
+- name: Get Docker wordpress image from registry
+  command: docker pull eugeneware/docker-wordpress-nginx 
+- name: Change image defaults
+  command: sudo docker run -p 80:80 --name docker-wordpress-nginx -d eugeneware/docker-wordpress-nginx
+- name: Starting the container
+  command: sudo docker start docker-wordpress-nginx

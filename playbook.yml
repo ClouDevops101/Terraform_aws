@@ -3,12 +3,10 @@
   #strategy: free
   sudo: yes
   roles:
-   - angstwad.docker_ubuntu
-  tasks:
-   - command: sudo usermod -aG docker ubuntu
-   - command: docker pull eugeneware/docker-wordpress-nginx 
-   - command: sudo docker run -p 80:80 --name docker-wordpress-nginx -d eugeneware/docker-wordpress-nginx
-   - command: sudo docker start docker-wordpress-nginx
-#   - shell: "curl -s https://api.ipify.org"
-#     register: myecho
-#   - debug: msg="Please configure your application in this url http://{{myecho.stdout}}"
+   - docker_ubuntu
+   - wordpress
+#  tasks:
+#   - command: sudo usermod -aG docker ubuntu
+#   - command: docker pull eugeneware/docker-wordpress-nginx 
+#   - command: sudo docker run -p 80:80 --name docker-wordpress-nginx -d eugeneware/docker-wordpress-nginx
+#   - command: sudo docker start docker-wordpress-nginx

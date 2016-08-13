@@ -54,18 +54,18 @@ fi
 # Prvent user from using an applying default value
 [[ $# -eq 0 ]] && usage
 #echo "$1 $2 $3 $4"
-echo "Starting Terraform"
+#echo "Starting Terraform"
 start=$(date +'%s')
 AWS_ELB_DNS=$(terraform apply  -var "app_name=$App_Name" -var "env_name=$Env" -var "num_serv=\"$Num_Serv\"" -var "serv_size=$Serv_Size" | grep address | awk -F= '{print $2}' | sed -e 's/\s//g' | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" )
-echo "Terraform ended"
+#echo "Terraform ended"
 # sleep waiting for amazon instance 70 second per instance
 time_to_zzZZZ=$(( 10  * $Num_Serv ))
 sleep $time_to_zzZZZ
 
-echo "Starting Ansible"
+#echo "Starting Ansible"
 ansible-playbook -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWSNEWKEY.pem  >/dev/null  2>&1 
 # Wait for elb IP
-echo "waiting for elb"
+#echo "waiting for elb"
  while true
   do
    AWS_ELB_DNS_COUNT=$(dig @8.8.4.4 +short $AWS_ELB_DNS | head -1 | wc -l)

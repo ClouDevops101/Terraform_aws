@@ -16,10 +16,10 @@ usage(){
 }
 #Default value
 # Arg 1
-App_Name="prod"
+App_Name="web"
 App_Name=${1:-$App_Name}
 # Arg 2
-Env="web"
+Env="prod"
 Env=${2:-$Env}
 # Arg 3
 Num_Serv="1"
@@ -58,11 +58,11 @@ echo "Starting Terraform"
 AWS_ELB_DNS=$(terraform apply  -var "app_name=$App_Name" -var "env_name=$Env" -var "num_serv=\"$Num_Serv\"" -var "serv_size=$Serv_Size" | grep address | awk -F= '{print $2}' | sed -e 's/\s//g' | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" )
 echo "Terraform ended"
 # sleep waiting for amazon instance 70 second per instance
-time_to_zzZZZ=$(( 70  * $3 ))
+time_to_zzZZZ=$(( 20  * $Num_Serv ))
 sleep $time_to_zzZZZ
 
-# Starting Ansible"
-ansible-playbook -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWSNEWKEY.pem  >/dev/null  2>&1 
+echo "Starting Ansible"
+#ansible-playbook -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWSNEWKEY.pem  >/dev/null  2>&1 
 # Wait for elb IP
 echo "waiting for elb"
  while true
@@ -72,8 +72,13 @@ echo "waiting for elb"
    if  [ "$AWS_ELB_DNS_COUNT" -eq "0" ]; then
      sleep 4
    elif [ "$AWS_ELB_DNS_COUNT" -eq "1" ]; then
-     echo "Application is available url http://$AWS_ELB_IP"
-     break
+     if (curl -sSf -m5 http://$AWS_ELB_IP -o /dev/null 2> /dev/null || false) then
+        echo "Application is available url http://$AWS_ELB_IP"
+        break
+     else
+        #echo "site not up yet"
+        continue
+     fi
    else
      echo "Sometging wrong"
      break

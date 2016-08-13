@@ -4,23 +4,11 @@ A Terraform Ansible config to deply infrastructure on AWS :
 
 ```
 
-                                             _____                               
-                                            /_____\      
-                                           |[^_/\_]|    ________
-                                          _|___@@__|__  -------                          
-                                          ///     \_\   / /                          
-                                         /// HUBOT/\\  //                         
-                                         //      /  \\/.     
-                                            +---+                            
-                                            |   |                            
-                                            +===+                            
-                                             |xx|  
-
          [ ] [ ]                       cloud-automation.sh
      __[ ]_[ ]_[ ]__                     |
     |               |                    |
     |  PaaS(Docker) |  <- Ansible -------|
-    |_ _____________|                    |
+    |_ _____________|                    Terraform.py
     |               |                    |
     |    IaaS(AWS)  |  <- Terraform------|
     |_______________|

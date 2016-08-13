@@ -1,8 +1,14 @@
 #! /bin/bash
 # Author: Abdelilah HEDDAR
 # A handy shell script that simplify the use of Terraform & ansible 
+# 
+# Dependency :  terraform : https://www.terraform.io/downloads.html
+#               ansible   : YUM : http://docs.ansible.com/ansible/intro_installation.html#latest-release-via-yum
+#                         : APT : http://docs.ansible.com/ansible/intro_installation.html#latest-releases-via-apt-ubuntu
+#               curl      : https://curl.haxx.se/download.html
+#               dig       : YUM : yum install bind-utils
+#                         : APT : sudo apt-get install dnsutils
 # #################################################################
-
 
 # Function
 # define usage function
@@ -14,7 +20,8 @@ usage(){
         echo -e "      cloud-automation.sh \e[5m $App_Name $Env $Num_Serv $Serv_Size \e[0m"
         
 }
-#Default value
+#
+# Default value
 # Arg 1
 App_Name="web"
 App_Name=${1:-$App_Name}

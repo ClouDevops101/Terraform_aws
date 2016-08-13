@@ -99,3 +99,9 @@ resource "aws_elb" "web" {
   instances = ["${aws_instance.web.*.id}"]
   security_groups = ["${aws_security_group.elb.id}"]
 }
+output "address" {
+    value = "${aws_elb.web.dns_name}"
+}
+output "ip" {
+    value = "${aws_elb.web.ip.public_ip}"
+}

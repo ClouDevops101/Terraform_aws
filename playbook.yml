@@ -9,14 +9,6 @@
    - command: docker pull eugeneware/docker-wordpress-nginx 
    - command: sudo docker run -p 80:80 --name docker-wordpress-nginx -d eugeneware/docker-wordpress-nginx
    - command: sudo docker start docker-wordpress-nginx
-   - shell: "curl -s https://api.ipify.org"
-     register: myecho
-   - debug: msg="Please configure your application in this url http://{{myecho.stdout}}"
-#   - name: Get the facts about the ELB
-#       ec2_elb_facts:
-#       names: rbgeek-dev-web-elb
-#       region: "us-west-2"
-#       register: elb_facts
-#   - name: Instance(s) ID that are currently register to the ELB
-#       debug:
-#         msg: "{{ elb_facts.elbs.0.instances }}"
+#   - shell: "curl -s https://api.ipify.org"
+#     register: myecho
+#   - debug: msg="Please configure your application in this url http://{{myecho.stdout}}"

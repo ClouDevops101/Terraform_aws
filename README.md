@@ -50,4 +50,10 @@ The terraform.py will be executed by ansbile to fetch information from terraform
 ```bash
  chmod +x terraform.py
 ``` 
+## Usage 
+Put you're application app.tar.gz (should contain a wordpress directory once unarchived) 
+Launch the application with the shell script :
+```
+./cloud-automation.sh web prod 2 t2.micro
+```
 

@@ -4,7 +4,7 @@ provider "aws" {
   region     = "us-west-2"
 }
 # Creating instance
-resource "aws_instance" "web" {
+resource "aws_instance" "abdelilah-heddar" {
   count = "${var.num_serv}"
   ami           = "ami-d732f0b7"
   instance_type = "${var.serv_size}"
@@ -74,11 +74,11 @@ resource "aws_security_group" "elb" {
   }
 }
 
-resource "aws_elb" "web" {
+resource "aws_elb" "abdelilah-heddar" {
   name = "abdelilah-heddar"
 
   # The same availability zone as our instance
-  availability_zones = ["${aws_instance.web.*.availability_zone}"]
+  availability_zones = ["${aws_instance.abdelilah-heddar.*.availability_zone}"]
 
   listener {
     instance_port = 80
@@ -96,12 +96,9 @@ resource "aws_elb" "web" {
   }  
   # The instance is registered automatically
   #instances = ["${aws_instance.web.*.id}"]
-  instances = ["${aws_instance.web.*.id}"]
+  instances = ["${aws_instance.abdelilah-heddar.*.id}"]
   security_groups = ["${aws_security_group.elb.id}"]
 }
 output "address" {
-    value = "${aws_elb.web.dns_name}"
-}
-output "ip" {
-    value = "${aws_elb.web.ip.public_ip}"
+    value = "${aws_elb.abdelilah-heddar.dns_name}"
 }

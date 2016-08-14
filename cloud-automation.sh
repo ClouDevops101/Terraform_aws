@@ -69,6 +69,9 @@ AWS_ELB_DNS=$(terraform apply  -var "app_name=$App_Name" -var "env_name=$Env" -v
 time_to_zzZZZ=$(( 10  * $Num_Serv ))
 sleep $time_to_zzZZZ
 
+# Copy the last application file to ansible directory
+cp latest.tar.gz roles/wordpress_dockerfile/files/ 
+cp Dockerfile  roles/wordpress_dockerfile/files/ 
 #echo "Starting Ansible"
 ansible-playbook -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWSNEWKEY.pem  >/dev/null  2>&1 
 # Wait for elb IP

@@ -3,4 +3,5 @@
   sudo: yes
   roles:
    - docker_ubuntu
-   - wordpress
+   #- wordpress_registry
+   - wordpress_dockerfile

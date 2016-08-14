@@ -1,7 +1,16 @@
 ---
 - hosts: all
+  gather_facts: no
+  tasks:
+   - debug: msg="inventory  {{ ansible_ssh_host | default(inventory_hostname) }}"
+   - wait_for: timeout=30 delay=10 connect_timeout=5 port=22 host={{  ansible_ssh_host | default(inventory_hostname) }} search_regex=OpenSSH
+
+- hosts: all
+  strategy: free
   sudo: yes
   roles:
    - docker_ubuntu
-   #- wordpress_registry
    - wordpress_dockerfile
+   # Uncomment the below line if you want to change the behaviour pulling docker images from docker registry
+   #- wordpress_registry
+ 

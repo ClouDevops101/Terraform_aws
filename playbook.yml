@@ -3,10 +3,10 @@
   gather_facts: no
   tasks:
    - debug: msg="inventory  {{ ansible_ssh_host | default(inventory_hostname) }}"
-   - wait_for: timeout=30 delay=10 connect_timeout=5 port=22 host={{  ansible_ssh_host | default(inventory_hostname) }} search_regex=OpenSSH
+   - wait_for: timeout=300 delay=10 connect_timeout=5 port=22 host={{  ansible_ssh_host | default(inventory_hostname) }} search_regex=OpenSSH
 
 - hosts: all
-  strategy: free
+  #strategy: free
   sudo: yes
   roles:
    - docker_ubuntu

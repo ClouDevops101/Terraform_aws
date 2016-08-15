@@ -1,0 +1,62 @@
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+   - debug: msg="inventory  {{ ansible_ssh_host | default(inventory_hostname) }}"
+   - local_action: wait_for timeout=300 delay=17 port=22 host={{  ansible_ssh_host | default(inventory_hostname) }} search_regex=OpenSSH
+
+- hosts: all
+  strategy: free
+  sudo: yes
+  vars_files:
+    - external_vars.yml
+  tasks:
+   - name: Send notification message via Slack
+     local_action:
+       module: slack
+       domain: "{{ ANSIBLE_SLACK_DOMAIN }}"
+       channel: "{{ ANSIBLE_SLACK_CHANNEL }}"
+       token: "{{ ANSIBLE_SLACK_TOKEN }}"
+       msg: "AWS EC2 and ELB OK "
+
+- hosts: all
+  strategy: free
+  sudo: yes
+  roles:
+   - docker_ubuntu
+
+- hosts: all
+  strategy: free
+  sudo: yes
+  vars_files:
+    - external_vars.yml
+  tasks:
+   - name: Send notification message via Slack
+     local_action:
+       module: slack
+       domain: "{{ ANSIBLE_SLACK_DOMAIN }}"
+       channel: "{{ ANSIBLE_SLACK_CHANNEL }}"
+       token: "{{ ANSIBLE_SLACK_TOKEN }}"
+       msg: "EC2 : OS + DOCKER OK "
+   # Uncomment the below line if you want to change the behaviour pulling docker images from docker registry
+
+- hosts: all
+  strategy: free
+  sudo: yes
+  roles:
+   - wordpress_registry
+   #- wordpress_dockerfile
+
+- hosts: all
+  strategy: free
+  sudo: yes
+  vars_files:
+    - external_vars.yml
+  tasks:
+   - name: Send notification message via Slack
+     local_action:
+       module: slack
+       domain: "{{ ANSIBLE_SLACK_DOMAIN }}"
+       channel: "{{ ANSIBLE_SLACK_CHANNEL }}"
+       token: "{{ ANSIBLE_SLACK_TOKEN }}"
+       msg: "DOCKER : Container wordpress OK  "

@@ -76,7 +76,7 @@ AWS_ELB_DNS=$(terraform apply  -var "app_name=$App_Name" -var "env_name=$Env" -v
 cp app.tar.gz roles/wordpress_dockerfile/files/ 
 cp Dockerfile  roles/wordpress_dockerfile/files/ 
 #echo "Starting Ansible"
-ansible-playbook -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWSNEWKEY.pem  >/dev/null  2>&1 
+ansible-playbook -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWSNEWKEY.pem   >/dev/null  2>&1 
 # Wait for elb IP
 #echo "waiting for elb"
  while true
@@ -101,4 +101,4 @@ ansible-playbook -i terraform.py -u ubuntu playbook.yml --private-key ~/.ssh/AWS
  done
 echo "It took $(($(date +'%s') - $start))sec"
 echo "Use this command to destroy "
-echo "terraform destroy  -var "app_name=$App_Name" -var "env_name=$Env" -var "num_serv=\"$Num_Serv\"" -var "serv_size=$Serv_Size" "
+echo "terraform destroy  -var "app_name=$App_Name" -var "env_name=$Env" -var "num_serv=\\\"$Num_Serv\\\""  -var "serv_size=$Serv_Size" "

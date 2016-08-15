@@ -66,8 +66,8 @@ start=$(date +'%s')
 AWS_ELB_DNS=$(terraform apply  -var "app_name=$App_Name" -var "env_name=$Env" -var "num_serv=\"$Num_Serv\"" -var "serv_size=$Serv_Size" | grep address | awk -F= '{print $2}' | sed -e 's/\s//g' | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" )
 #echo "Terraform ended"
 # sleep waiting for amazon instance 70 second per instance
-time_to_zzZZZ=$(( 17  * $Num_Serv ))
-sleep $time_to_zzZZZ
+#time_to_zzZZZ=$(( 17  * $Num_Serv ))
+#sleep $time_to_zzZZZ
 
 # Copy the last application file to ansible directory
 cp app.tar.gz roles/wordpress_dockerfile/files/ 

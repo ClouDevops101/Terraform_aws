@@ -11,12 +11,12 @@
 #  hubot deploy web_app dev 3 t2.micro 
 #
 # Author:
-#  Abdelilah
+#  Abdelilah Heddar
 #
 
 # Module to deploy on Aws
 module.exports = (robot) ->
- robot.respond /(deploy)\s([a-z]*)\s([a-z].*)\s(.*)\s(.*)$/i, (msg) ->
+ robot.respond /(deploy)\s([a-z]*)?\s([a-z].*)?\s(.*)?\s(.*)?$/i, (msg) ->
                #               <app><env>    <num_servers><server_size>
     app = msg.match[2]
     env = msg.match[3]

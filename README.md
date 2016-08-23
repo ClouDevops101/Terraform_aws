@@ -5,13 +5,13 @@ This set of script file and playbook create a number of aws instance and create 
 Load balancing is done automatically between multiple instance
 ```
 
-         [ ] [ ]                       cloud-automation.sh
-     __[ ]_[ ]_[ ]__                     |
-    |               |                    |
-    |  PaaS(Docker) |  <- Ansible -------|
-    |_ _____________|                    Terraform.py
-    |               |                    |
-    |    IaaS(AWS)  |  <- Terraform------|
+         [ ] [ ]                        cloud-automation.sh
+     __[ ]_[ ]_[ ]__                      |
+    |               |                     |
+    |  PaaS(Docker) |   <- Ansible -------|
+    |_ _____________|                     Terraform.py
+    |               |                     |
+    |    IaaS(AWS)  |   <- Terraform------|
     |_______________|
 
 ```

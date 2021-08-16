@@ -6,9 +6,10 @@ Abdelilah, Heddar github -> ClouDevops101
  
 # Terraform_aws
 
+**How it could be cool to deploy from slack of discord channel , try it :**
 A Terraform / Ansible / Docker config to deply infrastructure on AWS :
 This set of script file and playbook create a number of aws instance and create on each one a docker with a wordpress container
-Load balancing is done automatically between multiple instance
+Load balancing is done automatically between multiple instance  from a some keyword over a slack / disord or plateforme that could work with hubot.
 ```
 
          [ ] [ ]                        cloud-automation.sh
